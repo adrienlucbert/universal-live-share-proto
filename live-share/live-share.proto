@@ -1,0 +1,14 @@
+// Protocol version 0.0.1
+
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package live_share;
+
+service LiveShare {
+  rpc Ping(RawMessage) returns(RawMessage) {}
+  rpc Version(google.protobuf.Empty) returns(RawMessage) {}
+}
+
+message RawMessage { string message = 1; }
