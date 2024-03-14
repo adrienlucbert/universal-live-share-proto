@@ -1,4 +1,4 @@
-// Protocol version 0.0.1
+// Protocol version 0.0.2
 
 syntax = "proto3";
 
@@ -7,8 +7,34 @@ import "google/protobuf/empty.proto";
 package live_share;
 
 service LiveShare {
+  rpc Initialize(InitializeParams) returns(google.protobuf.Empty) {}
   rpc Ping(RawMessage) returns(RawMessage) {}
   rpc Version(google.protobuf.Empty) returns(RawMessage) {}
 }
+
+message InitializeParams {
+  /**
+   * Information about the client.
+   */
+  message ClientInfo {
+    /**
+     * The name of the client as defined by the client.
+     */
+    string name = 1;
+
+    /**
+     * The client's version as defined by the client.
+     */
+    optional string version = 2;
+  }
+  ClientInfo client_info = 1;
+
+  ClientCapabilities capabilities = 2;
+}
+
+/**
+ * The capabilities requested by the client (editor or tool).
+ */
+message ClientCapabilities {}
 
 message RawMessage { string message = 1; }
